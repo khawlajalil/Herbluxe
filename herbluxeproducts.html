@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Herbluxe - Collection</title>
+    <style>
+        /* Modern Reset and Elegant Typography */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Georgia', serif;
+        }
+        body {
+            background-color: #fcfaf8; /* A very soft, warm off-white */
+            color: #333;
+        }
+
+        /* Upgraded Header */
+        header {
+            background-color: #2c3e35; 
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        header h1 {
+            font-size: 32px;
+            letter-spacing: 4px;
+            font-weight: normal;
+            margin-bottom: 10px;
+        }
+        header a {
+            color: #e0e0e0;
+            text-decoration: none;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: color 0.3s;
+        }
+        header a:hover {
+            color: #ffffff;
+        }
+        
+        /* Luxurious Product Grid */
+        .product-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            padding: 60px 10%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            text-align: center;
+            padding: 25px;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            cursor: pointer;
+            border: 1px solid #f0f0f0;
+        }
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(44, 62, 53, 0.15);
+        }
+        .product-card img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover; /* Ensures images stay uniform */
+            border-radius: 8px;
+            margin-bottom: 20px;}
+        .product-card h3 {
+            font-size: 20px;
+            color: #2c3e35;
+            margin-bottom: 8px;
+        }
+        .product-card .subtitle {
+            font-size: 12px;
+            color: #777;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+        .price {
+            font-size: 22px;
+            color: #2c3e35;
+            margin: 15px 0;
+            font-weight: bold;
+        }
+        .order-btn {
+            background-color: transparent;
+            color: #2c3e35;
+            border: 1px solid #2c3e35;
+            padding: 10px 20px;
+            font-size: 13px;
+            cursor: pointer;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+        .product-card:hover .order-btn {
+            background-color: #2c3e35;
+            color: white;
+        }
+
+        /* The Pop-Up Modal Background */
+        .modal-overlay {
+            display: none; /* Hidden by default */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px); /* Adds a modern frosted glass effect */
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* The Pop-Up Form Box */
+        .modal-content {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 450px;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            animation: slideUp 0.4s ease forwards;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 28px;
+            cursor: pointer;
+            color: #999;
+            transition: 0.3s;
+        }
+        .close-btn:hover {
+            color: #333;
+        }
+
+        .modal-content h2 {
+            text-align: center;
+            color: #2c3e35;
+            margin-bottom: 5px;
+        }
+        .modal-content p {
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+
+        /* Form Inputs */
+        label {
+            display: block;
+            margin-bottom: 5px;font-size: 13px;
+            color: #555;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-family: sans-serif;
+            transition: border 0.3s;
+        }
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #2c3e35;
+        }
+        .submit-btn {
+            width: 100%;
+            background-color: #2c3e35;
+            color: white;
+            border: none;
+            padding: 15px;
+            font-size: 15px;
+            cursor: pointer;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: background-color 0.3s;
+        }
+        .submit-btn:hover {
+            background-color: #1a251f;
+        }
+        h4{font-size: 15px;padding-bottom: 5px;color: #2F4F3F;}
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>HERBLUXE</h1>
+        <a href="index.html">← Return to Home</a>
+    </header>
+
+    <section class="product-container">
+        
+        <div class="product-card" onclick="openModal('Herbal Hair Oil - 100ml')">
+            <img src="herbluxe1.jpg" alt="Herbal Hair Oil 100ml">
+            <h3>Herbal Hair Oil</h3>
+            <p class="subtitle">100ml | 100% Natural</p>
+            <div class="price">Rs. 1,500</div>
+            <button class="order-btn">Quick Order</button>
+        </div>
+
+        <div class="product-card" onclick="openModal('Herbal Hair Shampoo - 500ml')">
+            <img src="herbluxe2.jpg" alt="Herbal Hair Shampoo 500ml">
+            <h3>Herbal Hair Shampoo</h3>
+            <p class="subtitle">500ml | For low porosity</p>
+            <div class="price">Rs. 2,800</div>
+            <button class="order-btn">Quick Order</button>
+        </div>
+
+        <div class="product-card" onclick="openModal('Herbal Hair Shampoo - 250ml')">
+            <img src="herbluxe3.jpg" alt="Herbal Hair Shampoo 250ml">
+            <h3>Herbal Hair Shampoo</h3>
+            <p class="subtitle">250ml | For High Porosity</p>
+            <div class="price">Rs. 1,600</div>
+            <button class="order-btn">Quick Order</button>
+        </div>
+
+        <div class="product-card" onclick="openModal('Herbal Hair Mist')">
+            <img src="herbluxe4.jpg" alt="Herbal Hair Mist">
+            <h3>Herbal Hair Toner</h3>
+            <p class="subtitle">For all hair types</p>
+            <div class="price">Rs. 1,200</div>
+            <button class="order-btn">Quick Order</button>
+        </div>
+
+        <div class="product-card" onclick="openModal('Herbal Hair Vitamins')">
+            <img src="herbluxe5.jpg" alt="Herbal Supplements">
+            <h3>Herbal Anti-hairfall capsules</h3>
+            <p class="subtitle">Inner Nourishment</p>
+            <div class="price">Rs. 2,000</div>
+            <button class="order-btn">Quick Order</button>
+        </div>
+
+        <div class="product-card" onclick="openModal('Herbal Hair Soap')">
+            <img src="herbluxe6.jpg" alt="Herbal Hair Soap">
+            <h3>Herbal Soap</h3>
+            <p class="subtitle">Perfect for daily use</p>
+            <div class="price">Rs. 800</div>
+            <button class="order-btn">Quick Order</button>
+        </div>
+
+    </section>
+
+    <div class="modal-overlay" id="orderModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h2>Place Your Order</h2>
+            <p id="selected-product-display">Selected Product will appear here</p>
+            
+            <form action="https://formspree.io/f/YOUR_FORM_ID_HERE" method="POST">
+                <input type="hidden" id="product_name" name="Ordered Product">
+
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="Name" required placeholder="Enter your full name">
+
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="Phone" required placeholder="03XXXXXXXXX">
+
+                <label for="address">Delivery Address</label>
+                <textarea id="address" name="Address" rows="3" required placeholder="House #, Street, City"></textarea>
+
+                <label for="quantity">Quantity</label>
+                <input type="number" id="quantity" name="Quantity" min="1" value="1" required>
+<button type="submit" class="submit-btn">Confirm Order</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function openModal(productName) {
+            // Show the pop-up
+            document.getElementById('orderModal').style.display = 'flex';
+            
+            // Update the text in the pop-up so the customer sees what they clicked
+            document.getElementById('selected-product-display').innerText = "Ordering: " + productName;
+            
+            // Fill the hidden input so the product name gets emailed to you
+            document.getElementById('product_name').value = productName;
+        }
+
+        function closeModal() {
+            // Hide the pop-up
+            document.getElementById('orderModal').style.display = 'none';
+        }
+
+        // Allow closing the pop-up by clicking the background outside the box
+        window.onclick = function(event) {
+            var modal = document.getElementById('orderModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+    </script> <h4> These prices aren't final. To finalize the price, contact us via WhatsApp.
+        <!--Tab to edit-->
+    </h4>
+
+</body>
+</html>
